@@ -1,0 +1,9 @@
+{
+  "manifest_version": 3,
+  "name": "fone livepos test",
+  "version": "0.0.1",
+  "description": "Test harness: livepos.js in an offscreen document, the token from f1token.js in the background.",
+  "permissions": ["offscreen", "cookies"],
+  "host_permissions": ["http://*/*", "https://*/*"],
+  "background": { "service_worker": "bg.js" }
+}

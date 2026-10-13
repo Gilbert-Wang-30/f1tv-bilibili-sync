@@ -1,0 +1,30 @@
+{
+  "$schema": "https://raw.githubusercontent.com/BililiveRecorder/BililiveRecorder/dev/configV3.schema.json",
+  "version": 3,
+  "global": {
+    "FileNameRecordTemplate": {
+      "HasValue": true,
+      "Value": "{{ name }}/{{ \"now\" | time_zone: \"Asia/Shanghai\" | format_date: \"yyyyMMdd-HHmmss-fff\" }}-{{ title }}.flv"
+    },
+    "RecordingQuality": {
+      "HasValue": true,
+      "Value": "10000"
+    },
+    "RecordDanmaku": {
+      "HasValue": true,
+      "Value": false
+    }
+  },
+  "rooms": [
+    {
+      "RoomId": {
+        "HasValue": true,
+        "Value": 23954427
+      },
+      "AutoRecord": {
+        "HasValue": true,
+        "Value": true
+      }
+    }
+  ]
+}

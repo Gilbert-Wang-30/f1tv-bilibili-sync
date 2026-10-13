@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>F1 TV (layout mock)</title>
+<!--
+  Mock of F1 TV's player page for e2e/layout_test.py (served for https://f1tv.formula1.com/*).
+  Reproduces the DOM captured from the real replay player on 2026-10-09 and F1 TV's bundle
+  (vod chunk 462e4b6c): the player is portaled into body > #video-grid-root, #app goes inert;
+  div.video-grid is position:fixed z 100 over the viewport; Tiledmedia's UI lives in
+  div.tmw-player-ui-container, position:fixed z 999, INSIDE the grid (tmw-player-container's
+  second child); the fullscreen button and a double-click on the video call requestFullscreen()
+  on div.video-grid (viewConfig.fullscreenContainer = videoGridRef). The Tiledmedia CSS below
+  is the SDK's own (verbatim where captured); F1 TV's main stylesheet was not captured, so its
+  rules here are reconstructions (fixed full-viewport grid, 16:9 centered wrapper).
+  Query: ?grid=single|two-by-two  ?ui=inside|outside (the control bar layer beside the grid)
+-->
+<style>
+  html, body { margin: 0; height: 100%; background: #15151e; color: #fff; font: 16px/1.3 sans-serif; }
+  body.overflow-hidden { overflow: hidden; }
+  /* the catalogue behind the player */
+  #app header { position: fixed; top: 0; left: 0; right: 0; height: 64px; background: #e10600; z-index: 50; display: flex; align-items: center; padding: 0 24px; font-weight: 700; font-size: 24px; }
+  #app main { padding: 88px 24px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  #app .tile { height: 180px; background: #38383f; border-radius: 6px; display: flex; align-items: end; padding: 8px; }
+  /* bootstrap utilities F1 TV uses */
+  .d-flex { display: flex !important; } .w-100 { width: 100% !important; } .h-100 { height: 100% !important; }
+  .position-relative { position: relative !important; } .d-none { display: none !important; }
+  /* F1 TV player (reconstructed) */
+  .video-grid { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 100; background: #000; }
+  .video-grid-wrapper { position: relative; height: 100%; display: flex; align-items: center; justify-content: center; }
+  .video-wrapper { position: relative; width: 100%; aspect-ratio: 16 / 9; }
+  .embedded-player-container { background: #000; bottom: 0; left: 0; opacity: 0; position: absolute; right: 0; top: 0; transition: opacity .1s ease-in-out; z-index: -1; }
+  .embedded-player-container.show { opacity: 1; z-index: 1; }
+  .tmw-container { width: 100%; height: 100%; }
+  .tmw-player-container { align-items: center; }
+  .tmw-player-views-container { flex: 1 1 auto; width: 100%; display: grid; }
+  .tmw-player-ui-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 999; }
+  /* Tiledmedia SDK (vod chunk, verbatim) */
+  tiledmedia-view { padding: 0; margin: 0; position: relative; overflow: hidden; box-sizing: content-box; background-color: transparent; width: 100%; height: 100%; }
+  tiledmedia-view:before { display: block; content: ''; width: 100%; }
+  tiledmedia-view.aspect-16x9:before { padding-bottom: 56.25%; }
+  tiledmedia-view video { position: absolute; top: 0; left: 0; bottom: 0; right: 0; width: 100%; height: 100%; }
+  tiledmedia-view > * { box-sizing: border-box; padding: 0; }
+  tiledmedia-view video { object-fit: contain; }
+  /* Tiledmedia UI (.tm-ui-uicontainer verbatim; the rest approximated) */
+  tiledmedia-ui-view { display: block; position: relative; width: 100%; height: 100%; }
+  .tm-ui-uicontainer { height: 100%; left: 0; margin: 0; overflow: hidden; pointer-events: none; position: absolute; top: 0; width: 100%; color: #fff; font-family: sans-serif; user-select: none; }
+  .tm-ui-playbacktoggle-overlay { position: absolute; inset: 0; pointer-events: auto; }
+  .tm-ui-hugeplaybacktogglebutton { all: unset; position: absolute; inset: 0; cursor: pointer; }
+  .tm-ui-controlbar { position: absolute; left: 0; right: 0; bottom: 0; pointer-events: auto; padding: 6px 18px 8px; background: linear-gradient(transparent, rgba(0, 0, 0, .85)); }
+  .tm-ui-seekbar { position: relative; height: 18px; cursor: pointer; }
+  .tm-seekbar-backdrop { position: absolute; left: 0; right: 0; top: 7px; height: 4px; background: rgba(255, 255, 255, .35); }
+  .tm-seekbar-playbackposition { position: absolute; left: 0; top: 7px; height: 4px; background: #e10600; }
+  .tm-controlbar-bottom > .tm-container-wrapper { display: flex; align-items: center; gap: 14px; height: 40px; }
+  .tm-ui-controlbar button { width: 36px; height: 30px; border: 1px solid rgba(255, 255, 255, .6); background: rgba(255, 255, 255, .12); color: #fff; border-radius: 4px; font: 14px sans-serif; cursor: pointer; }
+  .tm-ui-controlbar button.tm-on { background: #e10600; }
+  .tm-spacer { flex: 1; }
+  .tm-ui-playbacktimelabel { font: 14px monospace; }
+</style>
+</head>
+<body>
+<div id="app">
+  <header>F1 TV — catalogue (behind the player)</header>
+  <main>
+    <div class="tile">Bahrain GP · Qualifying</div><div class="tile">Bahrain GP · Race</div>
+    <div class="tile">Saudi GP · Sprint</div><div class="tile">Saudi GP · Race</div>
+    <div class="tile">Archive</div><div class="tile">Docs</div><div class="tile">Shows</div><div class="tile">Live</div>
+  </main>
+</div>
+<script>
+'use strict';
+const Q = new URLSearchParams(location.search);
+const GRID_MODE = Q.get('grid') || 'single';
+const UI_OUTSIDE = Q.get('ui') === 'outside';
+const VIEWS = { single: 1, 'two-by-two': 4 }[GRID_MODE] || 1;
+// state the test reads
+window.__m = { tmDims: [], seeks: [], fsLog: [], plays: 0, isFs: false, feed: 0, opened: 0 };
+
+// ---- Tiledmedia elements (SDK: tiledmedia-view sets display:block + aspect-16x9 on connect and
+// watches its own size with a ResizeObserver, debounced 500 ms, to tell the core its pixel size)
+let nextView = 1;
+class TMView extends HTMLElement {
+  constructor() { super(); this.viewID = nextView++; this.player = { playerID: 1 }; }
+  connectedCallback() {
+    this.style.display = 'block';
+    this.classList.add('aspect-16x9');
+    let t = 0;
+    this.ro = new ResizeObserver(() => {
+      clearTimeout(t);
+      t = setTimeout(() => {
+        const r = this.getBoundingClientRect();
+        __m.tmDims.push({ view: this.viewID, w: Math.round(r.width), h: Math.round(r.height), at: Date.now() });
+      }, 500);
+    });
+    this.ro.observe(this);
+  }
+  disconnectedCallback() { this.ro?.disconnect(); }
+  get associatedPlayer() { return this.player; }
+  get currentContentTime() {
+    const v = this.querySelector('video');
+    if (!v || !v.duration) return undefined;
+    return { eventType: 'vod', currentPosition: v.currentTime * 1000, contentDuration: v.duration * 1000, seekLowerBound: 0, seekUpperBound: v.duration * 1000 };
+  }
+}
+customElements.define('tiledmedia-view', TMView);
+customElements.define('tiledmedia-ui-view', class extends HTMLElement {
+  get internalView() { return document.querySelector('tiledmedia-view'); }
+});
+
+const h = (tag, cls, attrs = {}, kids = []) => {
+  const e = document.createElement(tag);
+  if (cls) e.className = cls;
+  for (const [k, v] of Object.entries(attrs)) e.setAttribute(k, v);
+  for (const k of kids) e.append(k);
+  return e;
+};
+const grid = () => document.querySelector('div.video-grid');
+const mainVideo = () => document.querySelector('tiledmedia-view video');
+
+function makeView(i) {
+  const v = h('video', '', { src: '/media/test.mp4', muted: '', autoplay: '', loop: '', playsinline: '' });
+  v.muted = true;
+  return h('tiledmedia-view', `${GRID_MODE}-item`, { 'data-channel-id': String(1033 + i), 'data-type': i ? 'obc' : 'pres' }, [v]);
+}
+
+// ---- F1 TV's fullscreen toggle (Tiledmedia UI, vod chunk 14903 / 15529 / 15981, verbatim logic)
+function toggleFs() {
+  const c = grid(); // viewConfig.fullscreenContainer = videoGridRef
+  const d = () => { document.fullscreenElement || (__m.isFs = false, render(), c.removeEventListener('fullscreenchange', d)); };
+  if (document.fullscreenElement) {
+    __m.fsLog.push('exit');
+    document.exitFullscreen().catch((e) => console.error(e));
+  } else {
+    __m.fsLog.push('request');
+    c.requestFullscreen().then(() => { c.addEventListener('fullscreenchange', d); __m.isFs = true; render(); }).catch((e) => __m.fsLog.push('rejected: ' + e.message));
+  }
+}
+function togglePlay() {
+  const v = mainVideo();
+  __m.plays++;
+  v.paused ? v.play() : v.pause();
+}
+
+function makeUI() {
+  const seek = h('div', 'tm-ui-seekbar', {}, [h('div', 'tm-seekbar-backdrop'), h('div', 'tm-seekbar-playbackposition')]);
+  const fsBtn = h('button', 'tm-toggle tm-ui-fullscreentogglebutton', { type: 'button', title: 'fullscreen' });
+  fsBtn.textContent = '⛶';
+  const playBtn = h('button', 'tm-toggle tm-ui-playbacktogglebutton', { type: 'button' });
+  playBtn.textContent = '⏯';
+  const label = h('span', 'tm-ui-playbacktimelabel');
+  const huge = h('button', 'tm-ui-hugeplaybacktogglebutton', { type: 'button', 'aria-label': 'play/pause' });
+  const ui = h('div', 'tm-ui-uicontainer tm-flexbox', { id: 'tm-uicontainer' }, [
+    h('div', 'tm-ui-playbacktoggle-overlay', {}, [huge]),
+    h('div', 'tm-ui-controlbar', {}, [
+      h('div', 'tm-ui-container tm-controlbar-top', {}, [h('div', 'tm-container-wrapper', {}, [seek])]),
+      h('div', 'tm-controlbar-bottom', {}, [h('div', 'tm-container-wrapper', {}, [playBtn, label, h('span', 'tm-spacer'), fsBtn])]),
+    ]),
+  ]);
+  // Tiledmedia's seek math: page coordinates against the seek bar's bounding box
+  seek.addEventListener('click', (e) => {
+    const r = seek.getBoundingClientRect();
+    const f = Math.min(1, Math.max(0, (e.pageX - (r.left + scrollX)) / r.width));
+    __m.seeks.push(f);
+    const v = mainVideo();
+    if (v.duration) v.currentTime = f * v.duration;
+  });
+  playBtn.addEventListener('click', togglePlay);
+  fsBtn.addEventListener('click', (e) => { e.preventDefault(); toggleFs(); });
+  // double-click on the video = fullscreen, single click = play/pause (vod chunk 15544, verbatim timing)
+  let c = 0, u = 0;
+  huge.addEventListener('click', () => {
+    const e = Date.now();
+    if (e - c < 200) { toggleFs(); u = e; return; }
+    if (e - c < 500) { toggleFs(); togglePlay(); u = e; return; }
+    c = e;
+    setTimeout(() => { Date.now() - u > 200 && togglePlay(); }, 200);
+  });
+  const view = h('tiledmedia-ui-view', '', {}, [ui]);
+  setInterval(() => {
+    const v = mainVideo();
+    if (!v) return;
+    label.textContent = new Date((v.currentTime || 0) * 1000).toISOString().slice(11, 19);
+    seek.lastChild.style.width = `${v.duration ? (100 * v.currentTime) / v.duration : 0}%`;
+  }, 200);
+  window.render = () => fsBtn.classList.toggle('tm-on', __m.isFs);
+  return h('div', 'tmw-player-ui-container', {}, [view]);
+}
+
+function makeGrid() {
+  const views = h('div', 'tmw-player-views-container position-relative');
+  // F1 TV's on(): UNIFORM_GRID with width .5 -> "50% 50%"
+  if (VIEWS > 1) views.style.gridTemplateColumns = '50% 50%';
+  for (let i = 0; i < VIEWS; i++) views.append(makeView(i));
+  const playerContainer = h('div', 'tmw-player-container d-flex w-100', {}, [views]);
+  const ui = makeUI();
+  if (!UI_OUTSIDE) playerContainer.append(ui);
+  const wrapper = h('div', 'video-wrapper', {}, [
+    h('div', 'embedded-player-container show', {}, [h('div', 'd-flex tmw-container', {}, [playerContainer])]),
+  ]);
+  // F1 TV's an() (vod chunk 18729): sized from 100vh, not from its container
+  wrapper.style.maxWidth = 'calc(100vh * 1.7777777777777777 / 1 - 0px * 1.7777777777777777 / 1 - 0px * 1.7777777777777777 / 1 )';
+  wrapper.style.maxHeight = 'calc(100% - 0px - 0px)';
+  const gridWrapper = h('div', 'video-grid-wrapper', {}, [wrapper]);
+  gridWrapper.style.width = 'calc(100% - 0px)';
+  return { grid: h('div', `video-grid ${GRID_MODE}`, {}, [gridWrapper]), ui };
+}
+
+function root() {
+  let r = document.getElementById('video-grid-root');
+  if (!r) { r = h('div', '', { id: 'video-grid-root' }); document.body.appendChild(r); }
+  return r;
+}
+
+window.mockOpenPlayer = () => {
+  document.getElementById('app').inert = true;
+  document.body.classList.add('overflow-hidden');
+  const { grid: g, ui } = makeGrid();
+  root().append(g);
+  if (UI_OUTSIDE) root().append(ui);
+  __m.opened++;
+};
+window.mockClosePlayer = () => {
+  root().replaceChildren();
+  document.getElementById('app').inert = false;
+  document.body.classList.remove('overflow-hidden');
+  history.pushState(null, '', '/');
+};
+// a feed switch: Tiledmedia replaces the view (and its <video>)
+window.mockFeedSwitch = () => {
+  const old = document.querySelector('tiledmedia-view');
+  const v = makeView(0);
+  old.replaceWith(v);
+  __m.feed++;
+};
+// React unmounting the player and mounting a new one a moment later (new grid element)
+window.mockRemount = (ms = 300) => {
+  root().replaceChildren();
+  setTimeout(window.mockOpenPlayer, ms);
+};
+// the player appears after the page has loaded, like F1 TV's
+setTimeout(window.mockOpenPlayer, 400);
+</script>
+</body>
+</html>

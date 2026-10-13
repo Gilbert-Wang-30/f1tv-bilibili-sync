@@ -1,0 +1,7 @@
+fastapi>=0.115,<1
+uvicorn>=0.30
+httpx>=0.27
+tzdata
+numpy>=2
+websockets>=14
+brotli

@@ -1,0 +1,113 @@
+# Standalone: merge it into a compose stack you already run if you prefer.
+services:
+  fone:
+    build: ./server
+    image: fone:latest
+    container_name: fone
+    restart: unless-stopped
+    # the host also runs the recorders and the media stack: the screen-clock OCR and ffmpeg jobs
+    # (a one-off pass over existing recordings after an upgrade) stay within 3 cores.
+    cpus: 3
+    ports:
+      - "8788:8788"
+    volumes:
+      # All recorder output, read-only. Each streamer's folder becomes a channel,
+      # whichever recorder wrote it (your bililive_recorder or fone-recorder below).
+      - /mnt/nas/media/library/recordings:/rec:ro
+      # The one writable spot: backfill drops imported replays here (<channel>/<name>.flv),
+      # where the scanner picks them up like any recording. Create the folder first
+      # (mkdir -p /mnt/nas/media/library/recordings/fone-import), or docker makes it as root.
+      - /mnt/nas/media/library/recordings/fone-import:/rec/fone-import
+      - fone-data:/data
+    environment:
+      - FONE_FILENAME_TZ=Asia/Shanghai   # recorders render filename times in Beijing time
+      - FONE_DEFAULT_DELAY=40
+      # 录播姬 names folders after the account (马莎拉车); show them as the 胡闹P房 channel
+      - FONE_CHANNEL_ALIASES=马莎拉车=胡闹P房
+      # Live-status log, replay backfill and danmaku: room id = channel (as named after the alias)
+      - FONE_ROOMS=23954427=胡闹P房
+      - FONE_IMPORT_DIR=/rec/fone-import
+      # Optional services, all on by default: FONE_TIMING / FONE_ADS / FONE_SCREENCLOCK /
+      # FONE_VIDEO / FONE_BACKFILL / FONE_DANMAKU=0 switches one off.
+
+  # The extension's update channel (tools/publish_ext.sh fills the folder): build.json, which
+  # installed copies poll to know a new build is out, the build as fone-extension.tar.gz and
+  # the Mac scripts (install-mac.sh, fone-sync.sh), on port 8789. Reached over Tailscale away
+  # from home.
+  fone-ext:
+    image: python:3.12-alpine
+    container_name: fone-ext
+    restart: unless-stopped
+    ports:
+      - "8789:8000"
+    volumes:
+      - /mnt/nas/media/apps/fone-dist:/srv:ro
+    command: ["python", "-m", "http.server", "-d", "/srv", "8000"]
+
+  # Dedicated recorder for commentary streams: `docker compose --profile recorder up -d`.
+  # Separate from a recorder you already run on purpose (its webhooks and upload jobs
+  # should not see these rooms). This one has no webhook, records original quality and
+  # stamps filenames to the millisecond.
+  fone-recorder:
+    image: bililive/recorder:latest
+    container_name: fone-recorder
+    profiles: ["recorder"]
+    restart: unless-stopped
+    # The HTTP API is only reachable on this compose network (no published port), for the gate.
+    entrypoint: ["/bin/sh", "-c", "[ -f /rec/config.json ] || cp /seed/config.json /rec/config.json; exec /usr/local/bin/docker-entrypoint.sh run --bind http://*:2356 /rec"]
+    volumes:
+      - /mnt/nas/media/library/recordings/fone:/rec
+      - ./recorder/config.json:/seed/config.json:ro
+    # BREC_HTTP_BASIC_USER/PASS for the API (generated, mode 600, shared with the gate).
+    env_file: ./recorder/api.env
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - UMASK=002
+      - TZ=Asia/Shanghai
+
+  # Keeps fone-recorder to F1: stops (and deletes the seconds-long stub of) any recording
+  # whose stream title isn't F1, e.g. game streams, and restarts it if the title turns F1.
+  # If the gate is down the recorder simply records everything, as before.
+  fone-recorder-gate:
+    image: python:3.12-alpine
+    container_name: fone-recorder-gate
+    profiles: ["recorder"]
+    restart: unless-stopped
+    user: "1000:1000"
+    depends_on: [fone-recorder]
+    command: ["python", "-u", "/gate.py"]
+    volumes:
+      - ./recorder/gate.py:/gate.py:ro
+      - /mnt/nas/media/library/recordings/fone:/rec
+    env_file: ./recorder/api.env
+    environment:
+      - TZ=Asia/Shanghai
+      # Optional regex overrides: GATE_RECORD (titles to record) / GATE_SKIP (never record).
+
+  # Deletes fone-recorder's recordings and backfill's imports 3 weeks after they end
+  # (hourly sweep; an import's mtime is the end of the stream it replays). Scoped to
+  # recordings/fone and recordings/fone-import; never touches your other recorder's files.
+  fone-janitor:
+    image: alpine:latest
+    container_name: fone-janitor
+    profiles: ["recorder"]
+    restart: unless-stopped
+    volumes:
+      - /mnt/nas/media/library/recordings/fone:/rec
+      - /mnt/nas/media/library/recordings/fone-import:/rec-import
+    environment:
+      - KEEP_DAYS=21
+    command:
+      - sh
+      - -c
+      - |
+        while true; do
+          find /rec /rec-import -type f \( -name '*.flv' -o -name '*.xml' -o -name '*.mp4' -o -name '*.ts' \) \
+            -mmin +$$((KEEP_DAYS * 1440)) -print -delete
+          find /rec /rec-import -mindepth 1 -type d -empty -delete
+          sleep 3600
+        done
+
+volumes:
+  fone-data:

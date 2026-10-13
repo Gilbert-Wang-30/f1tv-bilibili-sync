@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  extension:
+    name: extension unit tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      # livepos.test.js reads ../server/tests/fixtures, so the tests run from extension/
+      # inside the full checkout.
+      - name: run the unit tests
+        working-directory: extension
+        run: |
+          for t in core dashcore dmcore background livepos; do
+            echo "== $t"
+            node "$t.test.js"
+          done
+
+  server:
+    name: server tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: build the server image
+        run: docker build -t fone:ci server
+      # -rs lists the skipped tests: the ones that need a real recording (not in the
+      # repository) skip here.
+      - name: pytest
+        run: |
+          docker run --rm -v "$PWD/server":/app -w /app -e PYTHONDONTWRITEBYTECODE=1 fone:ci \
+            sh -c 'pip install -q pytest && python -m pytest -q -rs -p no:cacheprovider tests'

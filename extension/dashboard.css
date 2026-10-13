@@ -1,0 +1,212 @@
+/* fone stats dashboard. Panel boxes are placed by dashboard.js (FoneDash.layout). */
+:root {
+  --bg: #07080b;
+  --panel: #0f1116;
+  --line: #1d2028;
+  --fg: #eceef3;
+  --dim: #9097a4;
+  --faint: #5d6370;
+  --purple: #b56cff;
+  --green: #31d26f;
+  --pit: #79a8ff;
+  --soft: #ff3b3b;
+  --medium: #ffd23f;
+  --hard: #f1f1f1;
+  --inter: #36c25e;
+  --wet: #3f8cff;
+  --font: "Segoe UI", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Roboto, Arial, "Liberation Sans", system-ui, sans-serif;
+  color-scheme: dark;
+}
+html, body { margin: 0; height: 100%; overflow: hidden; background: var(--bg); color: var(--fg); font: 14px/1.2 var(--font); }
+/* behind F1 TV's player: the bare page must never take a click */
+body.iframe { pointer-events: none; user-select: none; }
+[hidden] { display: none !important; }
+
+.panel {
+  position: absolute; box-sizing: border-box; overflow: hidden; pointer-events: auto;
+  background: var(--panel); border: 1px solid var(--line); border-radius: 10px;
+  font-variant-numeric: tabular-nums;
+}
+.note {
+  position: absolute; inset: 0; display: grid; place-content: center; gap: .4em; padding: 1em;
+  text-align: center; color: var(--dim); font-size: max(15px, 1.05em);
+}
+.note small { color: var(--faint); font-size: .8em; }
+.note small::first-letter { text-transform: uppercase; }
+
+/* ---- timing tower (font size and row height come from FoneDash.towerMetrics) ---- */
+.tower { --fs: 14px; --rowh: 22px; font-size: var(--fs); padding: .4em .55em; }
+/* fixed columns; when the font is held down by the height, the spare width goes between them */
+.thead, .row { display: grid; grid-template-columns: var(--cols); column-gap: .42em; justify-content: space-between;
+  align-items: center; white-space: nowrap; }
+.thead { height: 1.55em; box-sizing: border-box; align-items: end; padding-bottom: .3em; border-bottom: 1px solid var(--line); }
+.thead span { font-size: .6em; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--faint); text-align: right; overflow: hidden; }
+.thead span.c { text-align: center; }
+.tower.no-pits .pits, .tower.no-int .int { display: none; } /* narrow column: towerColumns */
+.thead span.ttl { grid-column: 1 / span 2; text-align: left; padding-left: .25em; font-size: .72em; font-weight: 800; letter-spacing: .06em; color: var(--fg); }
+.tbody { position: relative; }
+.row {
+  position: absolute; top: 0; left: -.55em; right: -.55em; padding: 0 .55em; height: var(--rowh);
+  transform: translateY(calc(var(--i) * var(--rowh)));
+  transition: transform .55s cubic-bezier(.2, .75, .25, 1), opacity .3s;
+}
+.tower.noanim .row { transition: none; }
+.row.odd { background: rgba(255, 255, 255, .028); }
+.row > span { overflow: hidden; text-overflow: clip; }
+.row.ko { opacity: .36; }
+.row.ret { opacity: .55; }
+.pos { text-align: right; color: var(--dim); font-weight: 600; }
+.drv { display: flex; align-items: center; gap: .32em; font-weight: 700; letter-spacing: .03em; }
+.drv i { flex: none; width: .24em; height: 1.05em; border-radius: .08em; background: var(--team, #777); }
+.gap, .int, .last, .best { text-align: right; }
+.int { color: #b4bac6; }
+.gap.lead { color: var(--dim); font-size: .78em; font-weight: 700; letter-spacing: .06em; }
+.last { color: #d7dbe2; }
+.last.pb { color: var(--green); }
+.last.ob, .best.ob { color: var(--purple); }
+.best { color: #d7dbe2; }
+.last.long, .best.long { font-size: .8em; letter-spacing: -.02em; }
+.tyre { display: flex; align-items: center; gap: .28em; }
+.ico {
+  flex: none; position: relative; box-sizing: border-box; width: 1.22em; height: 1.22em; border-radius: 50%;
+  border: .16em solid var(--tc); display: grid; place-items: center;
+}
+.ico b { font-size: .6em; font-weight: 800; line-height: 1; color: var(--tc); }
+.ico.soft { --tc: var(--soft); } .ico.medium { --tc: var(--medium); } .ico.hard { --tc: var(--hard); }
+.ico.intermediate { --tc: var(--inter); } .ico.wet { --tc: var(--wet); } .ico.unknown { --tc: var(--faint); }
+/* new tyres: a solid disc; used ones a ring */
+.ico.new { background: var(--tc); }
+.ico.new b { color: #101114; }
+.age { color: #c9ced7; }
+.pits { text-align: center; color: var(--dim); }
+.mark i {
+  font-style: normal; font-size: .62em; font-weight: 800; letter-spacing: .05em; padding: .2em .45em; border-radius: .3em;
+}
+.mark .pit { color: var(--pit); background: rgba(80, 130, 255, .16); }
+.mark .pitout { color: #6fe5a0; background: rgba(49, 210, 111, .15); }
+.mark .ret { color: #fff; background: #d6281e; }
+.cut {
+  position: absolute; left: -.55em; right: -.55em; top: 0; height: 0; z-index: 1;
+  border-top: 2px dashed rgba(255, 70, 60, .7);
+  transform: translateY(calc(var(--k) * var(--rowh) - 1px));
+  transition: transform .55s cubic-bezier(.2, .75, .25, 1);
+}
+
+/* ---- track map ---- */
+.map canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+/* ---- conditions: a compact card, sized off the panel (container units, so on the inner box).
+   Beside the map (FoneDash.layout: about as wide as the strip is tall): the session, then the
+   flag beside the part over the clock, then the weather in three columns, wind over two. The
+   type fits the longest texts: DOUBLE YELLOW beside a 5-character clock, wind at 12.3 m/s NNE. ---- */
+.cond { container-type: size; }
+.cin {
+  position: absolute; inset: 0; box-sizing: border-box; padding: 7cqh 6cqw;
+  display: flex; flex-direction: column; justify-content: space-between; gap: 3cqh;
+}
+.sess { color: var(--dim); font-size: clamp(9px, min(4.6cqh, 4.4cqw), 13px); font-weight: 600; letter-spacing: .08em;
+  text-transform: uppercase; line-height: 1.25; overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+.stale { position: absolute; top: 6px; right: 10px; color: #f5a524; font-size: 12px; font-weight: 600; }
+.stale::before { content: '●'; margin-right: .35em; }
+.now { display: flex; align-items: center; gap: 4cqw; min-width: 0; }
+.flag {
+  flex: 0 1 auto; min-width: 0; overflow: hidden; display: inline-flex; align-items: center; gap: .5em;
+  font-size: clamp(10px, min(6cqh, 4.6cqw), 17px);
+  font-weight: 800; letter-spacing: .06em; line-height: 1; padding: .42em .7em; border-radius: .32em; white-space: nowrap;
+}
+.flag.green { background: #1ea84a; color: #fff; }
+.flag.yellow { background: #ffd60a; color: #141414; }
+.flag.sc { background: #ff9f0a; color: #141414; }
+.flag.red { background: #e1251b; color: #fff; }
+.flag.idle { background: #262a33; color: #c4c9d3; }
+.flag.chequered { background: #1a1d23; color: #fff; box-shadow: inset 0 0 0 1px #3d424d; }
+.flag.chequered::before {
+  content: ''; width: 1.05em; height: 1.05em; border-radius: .12em;
+  background: repeating-conic-gradient(#f4f4f4 0 25%, #111 0 50%) 0 0 / .525em .525em;
+}
+/* the part above the clock ("SQ1" over "06:09", "LAP" over "23/62"), so a long flag still fits beside them */
+.time { flex: none; margin-left: auto; display: flex; flex-direction: column; align-items: flex-end; gap: .12em; }
+.part { font-size: clamp(10px, min(5.6cqh, 4.6cqw), 16px); font-weight: 800; letter-spacing: .04em; color: var(--dim); line-height: 1; }
+.clock { font-size: clamp(18px, min(15cqh, 12cqw), 42px); font-weight: 700; line-height: 1; letter-spacing: -.01em; }
+.wx { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2.5cqh 4cqw; }
+.wxi { display: flex; flex-direction: column; gap: .15em; min-width: 0; }
+.wxi.wind { grid-column: span 2; }
+.wxi .k { font-size: clamp(8px, min(4cqh, 3.7cqw), 11px); font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--faint); }
+.wxi .v { display: flex; align-items: center; gap: .3em; font-size: clamp(11px, min(7.2cqh, 6.2cqw), 19px); font-weight: 600; white-space: nowrap; }
+.v.wet { color: var(--wet); }
+.arrow { width: .85em; height: .85em; fill: #aab1bd; flex: none; }
+
+/* a wide, short bar (top of a stacked column, standalone): flag, part and clock in a line, the
+   weather in one row under it */
+@container (min-aspect-ratio: 2.2) {
+  .cin { padding: 9cqh 2.6cqw; gap: 6cqh; justify-content: center; }
+  .sess { display: none; }
+  .now { gap: 2.5cqw; }
+  .flag { font-size: clamp(10px, min(14cqh, 2.6cqw), 19px); }
+  .time { flex-direction: row; align-items: baseline; gap: .5em; }
+  .part { font-size: clamp(12px, min(18cqh, 3.4cqw), 26px); color: var(--fg); }
+  .clock { font-size: clamp(16px, min(30cqh, 5.6cqw), 42px); }
+  .wx { grid-template-columns: repeat(5, auto); justify-content: space-between; }
+  .wxi.wind { grid-column: auto; }
+  .wxi .k { font-size: clamp(8px, min(9cqh, 1.7cqw), 12px); }
+  .wxi .v { font-size: clamp(11px, min(16cqh, 3cqw), 20px); }
+}
+
+/* ---- onboard slots: our header with the driver picker over the video area, where the page
+   shows F1 TV's onboard view above this frame; nothing of ours is drawn there, the dark
+   background only shows while no onboard does ---- */
+.slot { --head: 24px; background: #040507; cursor: pointer; }
+.shead {
+  height: var(--head); box-sizing: border-box; display: flex; align-items: center; gap: .5em; padding: 0 .35em 0 .2em;
+  background: var(--panel); border-bottom: 1px solid var(--line); font-size: clamp(11px, calc(var(--head) * .5), 15px);
+}
+.pick {
+  display: flex; align-items: center; gap: .35em; min-width: 0; height: calc(100% - 4px); padding: 0 .45em;
+  border: 0; border-radius: .35em; background: none; color: var(--fg); font: inherit; font-weight: 700; letter-spacing: .03em;
+  cursor: pointer; white-space: nowrap;
+}
+.pick:hover:not(:disabled) { background: rgba(255, 255, 255, .07); }
+.pick:disabled { color: var(--faint); cursor: default; }
+.pick i { flex: none; width: .24em; height: 1.05em; border-radius: .08em; background: var(--team, #777); }
+.pick:not(.set) i { display: none; }
+.pick:not(.set) b { font-weight: 600; color: var(--dim); }
+.pick:disabled b { color: var(--faint); }
+.pick .num { color: var(--dim); font-weight: 600; }
+.pick .caret { color: var(--faint); font-size: .8em; }
+.shead .hint { margin-left: auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--faint); font-size: .85em; }
+.slot.off { cursor: default; }
+/* the slot whose picker is open (the picker may sit a little to its right, over the tower) */
+.slot.open { border-color: #4a5263; }
+.slot.open .pick { background: rgba(255, 255, 255, .1); }
+
+/* the picker: over the tower, above the slot's header (under it is the slot's video, left of
+   the column the player: both the page's, above this frame) */
+.menu {
+  position: absolute; z-index: 5; pointer-events: auto; box-sizing: border-box; display: flex; flex-direction: column;
+  gap: 4px; padding: 6px; overflow: auto; font-size: 13px; background: #161920; border: 1px solid #2b303b;
+  border-radius: 10px; box-shadow: 0 12px 32px rgba(0, 0, 0, .65);
+}
+.mttl { padding: 2px 6px 3px; color: var(--faint); font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+.opts { display: grid; grid-auto-flow: column; grid-template-rows: repeat(var(--rows, 11), 24px); grid-auto-columns: minmax(86px, auto); gap: 2px 4px; }
+.opt {
+  display: flex; align-items: center; gap: .4em; height: 24px; padding: 0 .55em; border: 0; border-radius: 6px;
+  background: none; color: var(--fg); font: inherit; font-weight: 700; letter-spacing: .03em; cursor: pointer; white-space: nowrap;
+}
+.opt:hover { background: rgba(255, 255, 255, .08); }
+.opt.on { background: rgba(255, 255, 255, .13); }
+.opt i { flex: none; width: .24em; height: 1.05em; border-radius: .08em; background: var(--team, #777); }
+.opt span { color: var(--dim); font-weight: 600; }
+.opt.other span::after { content: ' ⇄'; color: var(--faint); } /* in the other slot: picking it swaps them */
+.opt.none { color: var(--dim); font-weight: 600; border-top: 1px solid var(--line); border-radius: 0 0 6px 6px; justify-content: center; }
+
+/* the 'onboards' mode switch, in the map's top-left corner (iframe only) */
+.obtog {
+  position: absolute; top: 6px; left: 6px; z-index: 2; pointer-events: auto; cursor: pointer;
+  font: 700 10px/1 var(--font); letter-spacing: .08em; text-transform: uppercase; color: var(--dim);
+  background: rgba(255, 255, 255, .05); border: 1px solid var(--line); border-radius: 999px; padding: 4px 8px;
+}
+.obtog::before { content: ''; display: inline-block; width: 7px; height: 7px; margin-right: 5px; border-radius: 2px;
+  border: 1px solid currentColor; vertical-align: -0.5px; }
+.obtog.on { color: var(--fg); background: rgba(80, 130, 255, .18); border-color: rgba(120, 160, 255, .5); }
+.obtog.on::before { background: currentColor; }
+.obtog:hover { color: var(--fg); }

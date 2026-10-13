@@ -1,0 +1,20 @@
+{
+ "note": "The sponsor clips the 胡闹P房 streamer plays as a reel before and after sessions. The server reads refs.npz, their fingerprints (landmark hashes, no audio); this list describes what it holds. The clips' audio stays with whoever recorded it. To change the clips, run build_refs.py on a directory of their 8 kHz mono WAVs: it rewrites refs.npz and this list, the refs version changes, and every recording is re-analysed.",
+ "refs": [
+  {
+   "name": "ad_A_breaking_news_dongfangjiacheng",
+   "duration": 47.04,
+   "description": "sponsor reel A: a produced advert with a news-jingle opening"
+  },
+  {
+   "name": "ad_B_taobao_meituan_373737",
+   "duration": 36.62,
+   "description": "sponsor reel B: a produced advert, a short sketch"
+  },
+  {
+   "name": "ad_C_huiliyi_zhuzhaoqi",
+   "duration": 18.14,
+   "description": "sponsor reel C: a spoken sponsor read (an older take has a different first line)"
+  }
+ ]
+}

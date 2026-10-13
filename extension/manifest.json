@@ -1,0 +1,17 @@
+{
+  "manifest_version": 3,
+  "name": "fone — F1 TV × 解说 sync",
+  "version": "0.2.27",
+  "description": "Plays a Bilibili streamer's recorded commentary in sync with F1 TV, live or replay.",
+  "permissions": ["offscreen", "storage", "alarms", "cookies"],
+  "host_permissions": ["http://*/*", "https://*/*"],
+  "background": { "service_worker": "background.js" },
+  "content_scripts": [
+    { "matches": ["https://f1tv.formula1.com/*"], "js": ["local.js", "core.js", "player.js", "dmcore.js", "danmaku.js", "content.js", "layout.js"], "run_at": "document_idle" },
+    { "matches": ["https://f1tv.formula1.com/*"], "js": ["page.js", "layout_page.js"], "run_at": "document_idle", "world": "MAIN" }
+  ],
+  "web_accessible_resources": [{ "resources": ["dashboard.html"], "matches": ["https://f1tv.formula1.com/*"] }],
+  "action": { "default_title": "fone settings" },
+  "options_page": "options.html",
+  "icons": { "16": "icons/16.png", "48": "icons/48.png", "128": "icons/128.png" }
+}

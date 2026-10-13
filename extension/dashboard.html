@@ -1,0 +1,57 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>fone stats</title>
+<link rel="stylesheet" href="dashboard.css">
+<body>
+<section class="panel tower" id="tower" hidden>
+  <div class="thead" id="thead">
+    <span class="ttl" id="ttl"></span><span>Gap</span><span class="int">Int</span><span>Last</span><span>Best</span><span class="c">Tyre</span><span class="c pits">Pit</span><span></span>
+  </div>
+  <div class="tbody" id="rows"><div class="cut" id="cut" hidden></div></div>
+  <div class="note" id="towerNote" hidden></div>
+</section>
+<section class="panel map" id="map" hidden>
+  <button class="obtog" id="obToggle" type="button" hidden title="Make room below the picture for drivers’ onboard cameras (key O)">Onboards</button>
+  <canvas id="mapBg"></canvas>
+  <canvas id="mapFg"></canvas>
+  <div class="note" id="mapNote" hidden></div>
+</section>
+<section class="panel cond" id="cond" hidden>
+  <div class="cin">
+    <div class="sess" id="sess"></div>
+    <div class="now">
+      <span class="flag idle" id="flag">–</span>
+      <span class="time"><span class="part" id="part" hidden></span><span class="clock" id="clock"></span></span>
+    </div>
+    <div class="wx">
+      <div class="wxi"><span class="k">Air</span><span class="v" id="air">–</span></div>
+      <div class="wxi"><span class="k">Track</span><span class="v" id="trk">–</span></div>
+      <div class="wxi"><span class="k">Humidity</span><span class="v" id="hum">–</span></div>
+      <div class="wxi"><span class="k">Rain</span><span class="v" id="rain">–</span></div>
+      <div class="wxi wind"><span class="k">Wind</span><span class="v"><span id="wind">–</span><svg class="arrow" id="windArrow" viewBox="-6 -6 12 12" hidden><path d="M0 -5 L3.6 3.4 L0 1.6 L-3.6 3.4 Z"/></svg></span></div>
+    </div>
+  </div>
+  <span class="stale" id="stale" hidden>stale</span>
+</section>
+<!-- onboard slots (iframe): our header with the driver picker; the page shows F1 TV's onboard
+     view in the rest of the box, above this frame -->
+<section class="panel slot" id="slot0" hidden>
+  <div class="shead"><button class="pick" type="button"><i></i><b>Onboard</b><span class="num"></span><span class="caret">▾</span></button><span class="hint"></span></div>
+</section>
+<section class="panel slot" id="slot1" hidden>
+  <div class="shead"><button class="pick" type="button"><i></i><b>Onboard</b><span class="num"></span><span class="caret">▾</span></button><span class="hint"></span></div>
+</section>
+<section class="panel slot" id="slot2" hidden>
+  <div class="shead"><button class="pick" type="button"><i></i><b>Onboard</b><span class="num"></span><span class="caret">▾</span></button><span class="hint"></span></div>
+</section>
+<section class="panel slot" id="slot3" hidden>
+  <div class="shead"><button class="pick" type="button"><i></i><b>Onboard</b><span class="num"></span><span class="caret">▾</span></button><span class="hint"></span></div>
+</section>
+<div class="menu" id="menu" hidden>
+  <div class="mttl" id="menuTtl"></div>
+  <div class="opts" id="menuOpts"></div>
+  <button class="opt none" id="menuNone" type="button" data-num="">None</button>
+</div>
+<script src="dashcore.js"></script>
+<script src="dashboard.js"></script>

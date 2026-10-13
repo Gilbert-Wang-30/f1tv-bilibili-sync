@@ -1,0 +1,39 @@
+{
+ "code": 0,
+ "message": "OK",
+ "ttl": 1,
+ "data": [
+  {
+   "cid": 42431218095,
+   "page": 1,
+   "from": "vupload",
+   "part": "0-【胡闹P房】16点 巴林 排位赛",
+   "duration": 7222,
+   "vid": "",
+   "weblink": "",
+   "dimension": {
+    "width": 2560,
+    "height": 1440,
+    "rotate": 0
+   },
+   "first_frame": "http://i2.hdslb.com/bfs/storyff/_00000049xcnyhhekq24wxfgzqtykvgb_firsti.jpg",
+   "ctime": 1791034920
+  },
+  {
+   "cid": 42431218199,
+   "page": 2,
+   "from": "vupload",
+   "part": "1-【胡闹P房】16点 巴林 排位赛",
+   "duration": 3182,
+   "vid": "",
+   "weblink": "",
+   "dimension": {
+    "width": 2560,
+    "height": 1440,
+    "rotate": 0
+   },
+   "first_frame": "http://i0.hdslb.com/bfs/storyff/_0000067ysii1tdp472c2ntyhpveydab_firsti.jpg",
+   "ctime": 1791034920
+  }
+ ]
+}

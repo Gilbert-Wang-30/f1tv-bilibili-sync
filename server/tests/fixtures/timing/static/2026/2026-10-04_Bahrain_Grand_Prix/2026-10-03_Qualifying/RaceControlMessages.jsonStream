@@ -1,0 +1,20 @@
+﻿00:12:45.841{"Messages":[{"Utc":"2026-10-03T08:00:00","Category":"Flag","Flag":"GREEN","Scope":"Track","Message":"GREEN LIGHT - PIT EXIT OPEN"}]}
+00:27:11.017{"Messages":{"1":{"Utc":"2026-10-03T08:14:25","Category":"Other","Message":"CAR 87 (BEA) TIME 1:39.780 DELETED - TRACK LIMITS AT TURN 15 LAP 6 16:10:47"}}}
+00:27:14.947{"Messages":{"2":{"Utc":"2026-10-03T08:14:29","Category":"Other","Message":"CAR 87 (BEA) LAP DELETED - TRACK LIMITS AT TURN 15 (NEXT LAP PIT)"}}}
+00:30:45.783{"Messages":{"3":{"Utc":"2026-10-03T08:18:00","Category":"Flag","Flag":"CHEQUERED","Scope":"Track","Message":"CHEQUERED FLAG"}}}
+00:30:51.409{"Messages":{"4":{"Utc":"2026-10-03T08:18:06","Category":"Other","Message":"FIRST CAR TO TAKE THE FLAG - CAR 31 (OCO)"}}}
+00:35:00.560{"Messages":{"5":{"Utc":"2026-10-03T08:22:15","Category":"Other","Message":"FIA STEWARDS: Q1 INCIDENT INVOLVING CAR 18 (STR) NOTED - FAILING TO FOLLOW RACE DIRECTORS INSTRUCTIONS - MAXIMUM DELTA TIME"}}}
+00:36:03.764{"Messages":{"6":{"Utc":"2026-10-03T08:23:18","Category":"Other","Message":"FIA STEWARDS: Q1 INCIDENT INVOLVING CAR 18 (STR) WILL BE INVESTIGATED AFTER THE SESSION - FAILING TO FOLLOW RACE DIRECTORS INSTRUCTIONS - MAXIMUM DELTA TIME"}}}
+00:37:45.827{"Messages":{"7":{"Utc":"2026-10-03T08:25:00","Category":"Flag","Flag":"GREEN","Scope":"Track","Message":"GREEN LIGHT - PIT EXIT OPEN"}}}
+00:41:02.458{"Messages":{"8":{"Utc":"2026-10-03T08:28:17","Category":"Flag","Flag":"BLACK AND WHITE","Scope":"Driver","RacingNumber":"3","Message":"BLACK AND WHITE FLAG FOR CAR 3 (VER) - DRIVING UNNECESSARILY SLOWLY (16:26:55)"}}}
+00:44:29.476{"Messages":{"9":{"Utc":"2026-10-03T08:31:44","Category":"Other","Message":"CAR 12 (ANT) TIME 1:36.075 DELETED - TRACK LIMITS AT TURN 6 LAP 6 16:29:41"}}}
+00:50:31.051{"Messages":{"10":{"Utc":"2026-10-03T08:37:45","Category":"Flag","Flag":"BLACK AND WHITE","Scope":"Driver","RacingNumber":"14","Message":"BLACK AND WHITE FLAG FOR CAR 14 (ALO) - DRIVING UNNECESSARILY SLOWLY (16:37:03)"}}}
+00:52:45.803{"Messages":{"11":{"Utc":"2026-10-03T08:40:00","Category":"Flag","Flag":"CHEQUERED","Scope":"Track","Message":"CHEQUERED FLAG"}}}
+00:53:20.185{"Messages":{"12":{"Utc":"2026-10-03T08:40:35","Category":"Other","Message":"FIRST CAR TO TAKE THE FLAG - CAR 30 (LAW)"}}}
+00:57:34.476{"Messages":{"13":{"Utc":"2026-10-03T08:44:49","Category":"Other","Message":"FIA STEWARDS: Q2 INCIDENT INVOLVING CARS 18 (STR), 43 (COL) NOTED - FAILING TO FOLLOW RACE DIRECTORS INSTRUCTIONS - MAXIMUM DELTA TIME"}}}
+00:58:49.769{"Messages":{"14":{"Utc":"2026-10-03T08:46:04","Category":"Other","Message":"FIA STEWARDS: Q2 INCIDENT INVOLVING CARS 18 (STR), 43 (COL) WILL BE INVESTIGATED AFTER THE SESSION - FAILING TO FOLLOW RACE DIRECTORS INSTRUCTIONS - MAXIMUM DELTA TIME"}}}
+00:59:45.791{"Messages":{"15":{"Utc":"2026-10-03T08:47:00","Category":"Flag","Flag":"GREEN","Scope":"Track","Message":"GREEN LIGHT - PIT EXIT OPEN"}}}
+01:05:39.743{"Messages":{"16":{"Utc":"2026-10-03T08:52:54","Category":"Other","Message":"CAR 10 (GAS) TIME 1:37.402 DELETED - TRACK LIMITS AT TURN 6 LAP 15 16:51:21"}}}
+01:12:45.852{"Messages":{"17":{"Utc":"2026-10-03T09:00:00","Category":"Flag","Flag":"CHEQUERED","Scope":"Track","Message":"CHEQUERED FLAG"}}}
+01:12:54.899{"Messages":{"18":{"Utc":"2026-10-03T09:00:09","Category":"Other","Message":"FIRST CAR TO TAKE THE FLAG - CAR 6 (HAD)"}}}
+01:18:15.343{"Messages":{"19":{"Utc":"2026-10-03T09:05:30","Category":"Other","Message":"FIA STEWARDS: Q2 INCIDENT INVOLVING CAR 43 (COL) NO FURTHER ACTION - FAILING TO FOLLOW RACE DIRECTORS INSTRUCTIONS - MAXIMUM DELTA TIME"}}}

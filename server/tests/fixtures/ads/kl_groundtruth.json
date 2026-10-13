@@ -1,0 +1,36 @@
+{
+ "source": "胡闹P房/20261003-150312-650-【胡闹P房】16点 巴林 排位赛.flv",
+ "basis": "sample-accurate waveform cross-correlation of each clip (16 kHz), seconds of the FLV's audio == its audio HLS media time",
+ "plays": [
+  {
+   "name": "ad_A_breaking_news_dongfangjiacheng",
+   "start": 2901.52,
+   "end": 2948.56
+  },
+  {
+   "name": "ad_B_taobao_meituan_373737",
+   "start": 2949.97,
+   "end": 2986.59
+  },
+  {
+   "name": "ad_C_huiliyi_zhuzhaoqi",
+   "start": 2987.08,
+   "end": 3005.22
+  },
+  {
+   "name": "ad_A_breaking_news_dongfangjiacheng",
+   "start": 7888.322,
+   "end": 7935.362
+  },
+  {
+   "name": "ad_B_taobao_meituan_373737",
+   "start": 7935.514,
+   "end": 7972.134
+  },
+  {
+   "name": "ad_C_huiliyi_zhuzhaoqi",
+   "start": 7972.982,
+   "end": 7991.122
+  }
+ ]
+}

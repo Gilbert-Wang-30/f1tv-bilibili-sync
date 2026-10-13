@@ -1,0 +1,67 @@
+{
+"code": 0,
+"message": "OK",
+"ttl": 1,
+"data": {
+"items_lists": {
+"page": {
+"page_num": 1,
+"page_size": 20,
+"total": 4
+},
+"seasons_list": [],
+"series_list": [
+{
+"archives": [
+{
+"aid": 117377228408678,
+"bvid": "BV1RPHq6DEEV",
+"ctime": 1791034979,
+"duration": 5850,
+"enable_vt": false,
+"interactive_video": false,
+"playback_position": 0,
+"pubdate": 1791034979,
+"stat": {
+"view": 451,
+"vt": 0,
+"danmaku": 1467
+},
+"state": 0,
+"title": "【直播回放】【胡闹P房】1230 巴林 三练 2026年10月03日12点场",
+"ugc_pay": 0,
+"vt_display": "",
+"is_lesson_video": 0
+}
+],
+"meta": {
+"category": 2,
+"cover": "http://i1.hdslb.com/bfs/archive/4e70e9cd2b73d107f54a4a4da418a7dafc92abac.jpg",
+"creator": "auto",
+"ctime": 1718286783,
+"description": "直播回放",
+"keywords": [
+""
+],
+"last_update_ts": 1791034980,
+"mid": 1313650809,
+"mtime": 1791034980,
+"name": "直播回放",
+"raw_keywords": "",
+"series_id": 4169347,
+"state": 2,
+"total": 385
+},
+"recent_aids": [
+117377228408678,
+117377228344152,
+117370601341944,
+117370618119939,
+117339261504069,
+117339244726504
+]
+}
+]
+}
+}
+}

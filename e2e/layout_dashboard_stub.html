@@ -1,0 +1,28 @@
+<!doctype html>
+<!-- Stand-in for extension/dashboard.html in e2e/layout_run.sh (copied into a temp copy of the
+     extension as dashboard.html): fills the L-shape around the player box it is told about,
+     records the layout messages and its clicks, and sends layout commands. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>fone stats (stub)</title>
+<style>
+  html, body { margin: 0; height: 100%; background: transparent; color: #e8e8f0; font: 15px/1.4 system-ui, sans-serif; overflow: hidden; }
+  .pane { position: fixed; box-sizing: border-box; padding: 14px 18px; border: 3px solid #3ddc84; display: none; }
+  #right { background: rgb(24, 40, 72); }
+  #bottom { background: rgb(64, 24, 72); }
+  h1 { margin: 0 0 8px; font-size: 20px; } code { color: #f5c542; }
+  button { margin: 6px 6px 0 0; padding: 6px 10px; font: 14px system-ui; }
+</style>
+</head>
+<body>
+<div id="right" class="pane">
+  <h1>fone stats (stub) — right column</h1>
+  <div>player box <code id="r"></code></div>
+  <div>viewport <code id="v"></code> · fullscreen <code id="f"></code> · messages <code id="n"></code></div>
+  <button id="fs">fullscreen</button><button id="off">split off</button><button id="pop">pop out</button>
+</div>
+<div id="bottom" class="pane"><h1>bottom strip</h1><div>clicks here and in the right column reach the dashboard</div></div>
+<script src="dashboard_stub.js"></script>
+</body>
+</html>

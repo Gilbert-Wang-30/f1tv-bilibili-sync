@@ -1,0 +1,255 @@
+{
+"code": 0,
+"message": "OK",
+"ttl": 1,
+"data": {
+"dash": {
+"duration": 7222,
+"video": [
+{
+"id": 80,
+"baseUrl": "https://upos-sz-mirrorcosov.bilivideo.com/upgcxcode/95/80/42431218095/42431218095-1-30080.m4s?deadline=1791064678",
+"base_url": "https://upos-sz-mirrorcosov.bilivideo.com/upgcxcode/95/80/42431218095/42431218095-1-30080.m4s?deadline=1791064678",
+"backupUrl": [
+"https://upos-hz-mirrorakam.akamaized.net/upgcxcode/95/80/42431218095/42431218095-1-30080.m4s?deadline=1791064678"
+],
+"backup_url": [
+"https://upos-hz-mirrorakam.akamaized.net/upgcxcode/95/80/42431218095/42431218095-1-30080.m4s?deadline=1791064678"
+],
+"bandwidth": 687646,
+"codecs": "avc1.640033",
+"width": 1920,
+"height": 1080,
+"codecid": 7
+},
+{
+"id": 80,
+"baseUrl": "https://upos-sz-mirrorcosov.bilivideo.com/upgcxcode/95/80/42431218095/42431218095-1-30077.m4s?deadline=1791064678",
+"base_url": "https://upos-sz-mirrorcosov.bilivideo.com/upgcxcode/95/80/42431218095/42431218095-1-30077.m4s?deadline=1791064678",
+"backupUrl": [
+"https://upos-hz-mirrorakam.akamaized.net/upgcxcode/95/80/42431218095/42431218095-1-30077.m4s?deadline=1791064678"
+],
+"backup_url": [
+"https://upos-hz-mirrorakam.akamaized.net/upgcxcode/95/80/42431218095/42431218095-1-30077.m4s?deadline=1791064678"
+],
+"bandwidth": 576428,
+"codecs": "hvc1.1.6.L150.90",
+"width": 1920,
+"height": 1080,
+"codecid": 12
+},
+{
+"id": 80,
+"baseUrl": "https://upos-sz-mirrorcosov.bilivideo.com/upgcxcode/95/80/42431218095/42431218095-1-100026.m4s?deadline=1791064678",
+"base_url": "https://upos-sz-mirrorcosov.bilivideo.com/upgcxcode/95/80/42431218095/42431218095-1-100026.m4s?deadline=1791064678",
+"backupUrl": [
+"https://upos-hz-mirrorakam.akamaized.net/upgcxcode/95/80/42431218095/42431218095-1-100026.m4s?deadline=1791064678"
+],
+"backup_url": [
+"https://upos-hz-mirrorakam.akamaized.net/upgcxcode/95/80/42431218095/42431218095-1-100026.m4s?deadline=1791064678"
+],
+"bandwidth": 493748,
+"codecs": "av01.0.08M.08.0.110.01.01.01.0",
+"width": 1920,
+"height": 1080,
+"codecid": 13
+},
+{
+"id": 64,
+"baseUrl": "https://upos-sz-mirrorcosov.bilivideo.com/upgcxcode/95/80/42431218095/42431218095-1-30064.m4s?deadline=1791064678",
+"base_url": "https://upos-sz-mirrorcosov.bilivideo.com/upgcxcode/95/80/42431218095/42431218095-1-30064.m4s?deadline=1791064678",
+"backupUrl": [
+"https://upos-hz-mirrorakam.akamaized.net/upgcxcode/95/80/42431218095/42431218095-1-30064.m4s?deadline=1791064678"
+],
+"backup_url": [
+"https://upos-hz-mirrorakam.akamaized.net/upgcxcode/95/80/42431218095/42431218095-1-30064.m4s?deadline=1791064678"
+],
+"bandwidth": 320309,
+"codecs": "avc1.640033",
+"width": 1280,
+"height": 720,
+"codecid": 7
+},
+{
+"id": 64,
+"baseUrl": "https://upos-sz-mirrorcosov.bilivideo.com/upgcxcode/95/80/42431218095/42431218095-1-30066.m4s?deadline=1791064678",
+"base_url": "https://upos-sz-mirrorcosov.bilivideo.com/upgcxcode/95/80/42431218095/42431218095-1-30066.m4s?deadline=1791064678",
+"backupUrl": [
+"https://upos-hz-mirrorakam.akamaized.net/upgcxcode/95/80/42431218095/42431218095-1-30066.m4s?deadline=1791064678"
+],
+"backup_url": [
+"https://upos-hz-mirrorakam.akamaized.net/upgcxcode/95/80/42431218095/42431218095-1-30066.m4s?deadline=1791064678"
+],
+"bandwidth": 306072,
+"codecs": "hvc1.1.6.L120.90",
+"width": 1280,
+"height": 720,
+"codecid": 12
+},
+{
+"id": 64,
+"baseUrl": "https://upos-sz-mirrorcosov.bilivideo.com/upgcxcode/95/80/42431218095/42431218095-1-100024.m4s?deadline=1791064678",
+"base_url": "https://upos-sz-mirrorcosov.bilivideo.com/upgcxcode/95/80/42431218095/42431218095-1-100024.m4s?deadline=1791064678",
+"backupUrl": [
+"https://upos-hz-mirrorakam.akamaized.net/upgcxcode/95/80/42431218095/42431218095-1-100024.m4s?deadline=1791064678"
+],
+"backup_url": [
+"https://upos-hz-mirrorakam.akamaized.net/upgcxcode/95/80/42431218095/42431218095-1-100024.m4s?deadline=1791064678"
+],
+"bandwidth": 247001,
+"codecs": "av01.0.08M.08.0.110.01.01.01.0",
+"width": 1280,
+"height": 720,
+"codecid": 13
+},
+{
+"id": 32,
+"baseUrl": "https://upos-sz-mirrorcosov.bilivideo.com/upgcxcode/95/80/42431218095/42431218095-1-30032.m4s?deadline=1791064678",
+"base_url": "https://upos-sz-mirrorcosov.bilivideo.com/upgcxcode/95/80/42431218095/42431218095-1-30032.m4s?deadline=1791064678",
+"backupUrl": [
+"https://upos-hz-mirrorakam.akamaized.net/upgcxcode/95/80/42431218095/42431218095-1-30032.m4s?deadline=1791064678"
+],
+"backup_url": [
+"https://upos-hz-mirrorakam.akamaized.net/upgcxcode/95/80/42431218095/42431218095-1-30032.m4s?deadline=1791064678"
+],
+"bandwidth": 189740,
+"codecs": "avc1.640033",
+"width": 852,
+"height": 480,
+"codecid": 7
+},
+{
+"id": 32,
+"baseUrl": "https://upos-sz-mirrorcosov.bilivideo.com/upgcxcode/95/80/42431218095/42431218095-1-30033.m4s?deadline=1791064678",
+"base_url": "https://upos-sz-mirrorcosov.bilivideo.com/upgcxcode/95/80/42431218095/42431218095-1-30033.m4s?deadline=1791064678",
+"backupUrl": [
+"https://upos-hz-mirrorakam.akamaized.net/upgcxcode/95/80/42431218095/42431218095-1-30033.m4s?deadline=1791064678"
+],
+"backup_url": [
+"https://upos-hz-mirrorakam.akamaized.net/upgcxcode/95/80/42431218095/42431218095-1-30033.m4s?deadline=1791064678"
+],
+"bandwidth": 171060,
+"codecs": "hvc1.1.6.L120.90",
+"width": 852,
+"height": 480,
+"codecid": 12
+},
+{
+"id": 32,
+"baseUrl": "https://upos-sz-mirrorcosov.bilivideo.com/upgcxcode/95/80/42431218095/42431218095-1-100023.m4s?deadline=1791064678",
+"base_url": "https://upos-sz-mirrorcosov.bilivideo.com/upgcxcode/95/80/42431218095/42431218095-1-100023.m4s?deadline=1791064678",
+"backupUrl": [
+"https://upos-hz-mirrorakam.akamaized.net/upgcxcode/95/80/42431218095/42431218095-1-100023.m4s?deadline=1791064678"
+],
+"backup_url": [
+"https://upos-hz-mirrorakam.akamaized.net/upgcxcode/95/80/42431218095/42431218095-1-100023.m4s?deadline=1791064678"
+],
+"bandwidth": 145848,
+"codecs": "av01.0.08M.08.0.110.01.01.01.0",
+"width": 852,
+"height": 480,
+"codecid": 13
+},
+{
+"id": 16,
+"baseUrl": "https://upos-hz-mirrorakam.akamaized.net/upgcxcode/95/80/42431218095/42431218095-1-30011.m4s?deadline=1791064678",
+"base_url": "https://upos-hz-mirrorakam.akamaized.net/upgcxcode/95/80/42431218095/42431218095-1-30011.m4s?deadline=1791064678",
+"backupUrl": [
+"https://upos-sz-mirrorcosov.bilivideo.com/upgcxcode/95/80/42431218095/42431218095-1-30011.m4s?deadline=1791064678"
+],
+"backup_url": [
+"https://upos-sz-mirrorcosov.bilivideo.com/upgcxcode/95/80/42431218095/42431218095-1-30011.m4s?deadline=1791064678"
+],
+"bandwidth": 113594,
+"codecs": "hvc1.1.6.L120.90",
+"width": 640,
+"height": 360,
+"codecid": 12
+},
+{
+"id": 16,
+"baseUrl": "https://upos-sz-mirrorcosov.bilivideo.com/upgcxcode/95/80/42431218095/42431218095-1-30016.m4s?deadline=1791064678",
+"base_url": "https://upos-sz-mirrorcosov.bilivideo.com/upgcxcode/95/80/42431218095/42431218095-1-30016.m4s?deadline=1791064678",
+"backupUrl": [
+"https://upos-hz-mirrorakam.akamaized.net/upgcxcode/95/80/42431218095/42431218095-1-30016.m4s?deadline=1791064678"
+],
+"backup_url": [
+"https://upos-hz-mirrorakam.akamaized.net/upgcxcode/95/80/42431218095/42431218095-1-30016.m4s?deadline=1791064678"
+],
+"bandwidth": 134827,
+"codecs": "avc1.640033",
+"width": 640,
+"height": 360,
+"codecid": 7
+},
+{
+"id": 16,
+"baseUrl": "https://upos-sz-mirrorcosov.bilivideo.com/upgcxcode/95/80/42431218095/42431218095-1-100022.m4s?deadline=1791064678",
+"base_url": "https://upos-sz-mirrorcosov.bilivideo.com/upgcxcode/95/80/42431218095/42431218095-1-100022.m4s?deadline=1791064678",
+"backupUrl": [
+"https://upos-hz-mirrorakam.akamaized.net/upgcxcode/95/80/42431218095/42431218095-1-100022.m4s?deadline=1791064678"
+],
+"backup_url": [
+"https://upos-hz-mirrorakam.akamaized.net/upgcxcode/95/80/42431218095/42431218095-1-100022.m4s?deadline=1791064678"
+],
+"bandwidth": 97659,
+"codecs": "av01.0.08M.08.0.110.01.01.01.0",
+"width": 640,
+"height": 360,
+"codecid": 13
+}
+],
+"audio": [
+{
+"id": 30216,
+"baseUrl": "https://upos-sz-mirrorcosov.bilivideo.com/upgcxcode/95/80/42431218095/42431218095-1-30216.m4s?deadline=1791064678",
+"base_url": "https://upos-sz-mirrorcosov.bilivideo.com/upgcxcode/95/80/42431218095/42431218095-1-30216.m4s?deadline=1791064678",
+"backupUrl": [
+"https://upos-hz-mirrorakam.akamaized.net/upgcxcode/95/80/42431218095/42431218095-1-30216.m4s?deadline=1791064678"
+],
+"backup_url": [
+"https://upos-hz-mirrorakam.akamaized.net/upgcxcode/95/80/42431218095/42431218095-1-30216.m4s?deadline=1791064678"
+],
+"bandwidth": 67174,
+"codecs": "mp4a.40.2",
+"width": 0,
+"height": 0,
+"codecid": 0
+},
+{
+"id": 30232,
+"baseUrl": "https://upos-sz-mirrorcosov.bilivideo.com/upgcxcode/95/80/42431218095/42431218095-1-30232.m4s?deadline=1791064678",
+"base_url": "https://upos-sz-mirrorcosov.bilivideo.com/upgcxcode/95/80/42431218095/42431218095-1-30232.m4s?deadline=1791064678",
+"backupUrl": [
+"https://upos-hz-mirrorakam.akamaized.net/upgcxcode/95/80/42431218095/42431218095-1-30232.m4s?deadline=1791064678"
+],
+"backup_url": [
+"https://upos-hz-mirrorakam.akamaized.net/upgcxcode/95/80/42431218095/42431218095-1-30232.m4s?deadline=1791064678"
+],
+"bandwidth": 74016,
+"codecs": "mp4a.40.2",
+"width": 0,
+"height": 0,
+"codecid": 0
+},
+{
+"id": 30280,
+"baseUrl": "https://upos-hz-mirrorakam.akamaized.net/upgcxcode/95/80/42431218095/42431218095-1-30280.m4s?deadline=1791064678",
+"base_url": "https://upos-hz-mirrorakam.akamaized.net/upgcxcode/95/80/42431218095/42431218095-1-30280.m4s?deadline=1791064678",
+"backupUrl": [
+"https://upos-sz-mirrorcosov.bilivideo.com/upgcxcode/95/80/42431218095/42431218095-1-30280.m4s?deadline=1791064678"
+],
+"backup_url": [
+"https://upos-sz-mirrorcosov.bilivideo.com/upgcxcode/95/80/42431218095/42431218095-1-30280.m4s?deadline=1791064678"
+],
+"bandwidth": 129610,
+"codecs": "mp4a.40.2",
+"width": 0,
+"height": 0,
+"codecid": 0
+}
+]
+},
+"timelength": 7221720
+}
+}

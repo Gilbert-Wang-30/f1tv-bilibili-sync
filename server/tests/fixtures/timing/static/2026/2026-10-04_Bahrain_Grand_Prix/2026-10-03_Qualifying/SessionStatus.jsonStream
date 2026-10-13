@@ -1,0 +1,11 @@
+﻿00:00:09.380{"Status":"Inactive","Started":"Inactive"}
+00:12:45.575{"Status":"Started","Started":"Started"}
+00:30:45.533{"Status":"Finished","Started":"Finished"}
+00:36:53.170{"Status":"Inactive","Started":"Finished"}
+00:37:45.514{"Status":"Started","Started":"Started"}
+00:52:45.522{"Status":"Finished","Started":"Finished"}
+00:58:52.023{"Status":"Inactive","Started":"Finished"}
+00:59:45.523{"Status":"Started","Started":"Started"}
+01:12:45.570{"Status":"Finished","Started":"Finished"}
+01:16:46.790{"Status":"Finalised","Started":"Finished"}
+01:18:15.343{"Status":"Ends","Started":"Finished"}

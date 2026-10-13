@@ -1,0 +1,75 @@
+{
+ "note": "t0 = capture time of the replay first sample from MultiViewer clock ticks (D calibrated on KL); live_time from danmakus startDate; s0 from danmaku origin",
+ "rows": [
+  {
+   "tag": "KL_3700",
+   "bvid": "BV1ePHq6DE8B",
+   "live_time": 1791010991.0,
+   "s0": 1791010997.0,
+   "t0": 1791010990.65
+  },
+  {
+   "tag": "FP1_2400",
+   "bvid": "BV1R2a26uETd",
+   "live_time": 1790914514.0,
+   "s0": 1790914519.0,
+   "t0": 1790914513.675
+  },
+  {
+   "tag": "FP2_2400",
+   "bvid": "BV1ora26kEax",
+   "live_time": 1790927049.0,
+   "s0": null,
+   "t0": 1790927048.735
+  },
+  {
+   "tag": "FP3_2400",
+   "bvid": "BV1RPHq6DEEV",
+   "live_time": 1791000331.0,
+   "s0": 1791000337.0,
+   "t0": 1791000331.049
+  },
+  {
+   "tag": "AZFP3_1700",
+   "bvid": "BV1nyh26mEPC",
+   "live_time": 1790324134.0,
+   "s0": 1790324139.0,
+   "t0": 1790324133.22
+  },
+  {
+   "tag": "AZQ_1200",
+   "bvid": "BV1uhhU6NE7G",
+   "live_time": null,
+   "s0": 1790336861.0,
+   "t0": 1790336855.5
+  },
+  {
+   "tag": "ESFP1_1500",
+   "bvid": "BV16MY76iEd5",
+   "live_time": 1789125408.0,
+   "s0": 1789125413.0,
+   "t0": 1789125407.68
+  },
+  {
+   "tag": "ESFP2_1500",
+   "bvid": "BV1VdY16MEu6",
+   "live_time": 1789138000.0,
+   "s0": 1789138009.0,
+   "t0": 1789138003.486
+  },
+  {
+   "tag": "ITFP3_1500",
+   "bvid": "BV1SLbj6ME6t",
+   "live_time": 1788603452.0,
+   "s0": 1788603457.0,
+   "t0": 1788603451.168
+  },
+  {
+   "tag": "ITQ_2700",
+   "bvid": "BV1ATbL6dEp9",
+   "live_time": null,
+   "s0": null,
+   "t0": 1788614266.854
+  }
+ ]
+}

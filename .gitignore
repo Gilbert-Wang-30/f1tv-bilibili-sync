@@ -1,0 +1,26 @@
+# secrets: the recorder API's basic-auth credentials (see README → Recording)
+recorder/api.env
+
+# build output (tools/publish_ext.sh)
+*.zip
+*.tar.gz
+
+# generated
+__pycache__/
+*.pyc
+.pytest_cache/
+node_modules/
+.DS_Store
+
+# local publishing settings (tools/publish_ext.sh)
+tools/publish.env
+
+# stamped into published builds (tools/publish_ext.sh); the repo copy has neither
+extension/build.js
+extension/build.json
+
+# editors, local environments, logs
+*.log
+.venv/
+.idea/
+.vscode/
